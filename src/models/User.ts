@@ -5,7 +5,7 @@ interface IUser extends Document {
   username: string;
   email: string;
   thoughts: Types.ObjectId[];
-  friends: Types.ObjectId[]; // ✅ Fix TypeScript complaint
+  friends: Types.ObjectId[]; 
 }
 
 // User Schema
@@ -19,7 +19,7 @@ const userSchema = new Schema<IUser>(
       match: [/.+@.+\..+/, 'Must be a valid email address']
     },
     thoughts: [{ type: Types.ObjectId, ref: 'Thought' }],
-    friends: [{ type: Types.ObjectId, ref: 'User' }] // ✅ Fix TypeScript complaint
+    friends: [{ type: Types.ObjectId, ref: 'User' }] 
   },
   {
     toJSON: { virtuals: true },
