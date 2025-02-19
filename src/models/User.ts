@@ -1,7 +1,15 @@
-import { Schema, model, Types } from 'mongoose';
+import { Schema, model, Types, Document } from 'mongoose';
+
+// Define User Interface
+interface IUser extends Document {
+  username: string;
+  email: string;
+  thoughts: Types.ObjectId[];
+  friends: Types.ObjectId[]; // ✅ Fix TypeScript complaint
+}
 
 // User Schema
-const userSchema = new Schema(
+const userSchema = new Schema<IUser>(
   {
     username: { type: String, required: true, unique: true, trim: true },
     email: { 
@@ -11,7 +19,7 @@ const userSchema = new Schema(
       match: [/.+@.+\..+/, 'Must be a valid email address']
     },
     thoughts: [{ type: Types.ObjectId, ref: 'Thought' }],
-    friends: [{ type: Types.ObjectId, ref: 'User' }]
+    friends: [{ type: Types.ObjectId, ref: 'User' }] // ✅ Fix TypeScript complaint
   },
   {
     toJSON: { virtuals: true },
@@ -25,5 +33,5 @@ userSchema.virtual('friendCount').get(function () {
 });
 
 // User Model
-const User = model('User', userSchema);
+const User = model<IUser>('User', userSchema);
 export default User;

@@ -1,12 +1,12 @@
 import { Schema, model, Types, Document } from 'mongoose';
-import reactionSchema from './Reaction.js';
+import reactionSchema from './Reaction';
 
 // Define Thought Interface
 interface IThought extends Document {
   thoughtText: string;
   createdAt: Date;
   username: string;
-  reactions: Types.DocumentArray<typeof reactionSchema>;
+  reactions: Types.DocumentArray<typeof reactionSchema>; // ✅ FIXED
 }
 
 // Thought Schema
@@ -15,11 +15,11 @@ const thoughtSchema = new Schema<IThought>(
     thoughtText: { type: String, required: true, minlength: 1, maxlength: 280 },
     createdAt: { 
       type: Date, 
-      default: () => new Date(), 
-      get: (timestamp: Date) => timestamp.toLocaleString() 
+      default: Date.now, 
+      get: (timestamp: any) => new Date(timestamp).toLocaleString() 
     },
     username: { type: String, required: true },
-    reactions: [reactionSchema]
+    reactions: { type: [reactionSchema], default: [] } // ✅ Ensuring it's an array
   },
   {
     toJSON: { virtuals: true, getters: true },
