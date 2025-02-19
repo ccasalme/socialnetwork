@@ -1,32 +1,16 @@
-import { Schema, model, Types, Document } from 'mongoose';
-import reactionSchema from './Reaction';
+import { Schema, model, Types, Document, InferSchemaType } from 'mongoose';
+import { reactionSchema, IReaction } from './Reaction';
 
-// Define Thought Interface
-interface IThought extends Document {
-  thoughtText: string;
-  createdAt: Date;
-  username: string;
-  reactions: Types.DocumentArray<Types.Subdocument>;
-}
+// Safe timestamp formatter
+const formatTimestamp = (timestamp: Date) => timestamp.toISOString();
 
 // Thought Schema
-const thoughtSchema = new Schema<IThought>(
+const thoughtSchema = new Schema(
   {
     thoughtText: { type: String, required: true, minlength: 1, maxlength: 280 },
-    createdAt: { 
-      type: Date, 
-      default: Date.now, 
-      get: function (this: { createdAt: Date }): string {
-        return this.createdAt instanceof Date 
-          ? this.createdAt.toLocaleString() 
-          : new Date(this.createdAt).toLocaleString();
-      }
-    } as any,
+    createdAt: { type: Date, default: Date.now, get: formatTimestamp },
     username: { type: String, required: true },
-    reactions: { 
-      type: [reactionSchema], 
-      default: () => [] // ✅ FIXED Subdocument Array
-    }
+    reactions: { type: [reactionSchema], default: [], _id: false }
   },
   {
     toJSON: { virtuals: true, getters: true },
@@ -35,9 +19,12 @@ const thoughtSchema = new Schema<IThought>(
 );
 
 // Virtual: Get reaction count
-thoughtSchema.virtual('reactionCount').get(function (this: { reactions: any[] }) {
-  return this.reactions ? this.reactions.length : 0;
+thoughtSchema.virtual('reactionCount').get(function () {
+  return this.reactions.length;
 });
+
+// **Infer Type from Schema** ✅
+type IThought = InferSchemaType<typeof thoughtSchema>;
 
 // Thought Model
 const Thought = model<IThought>('Thought', thoughtSchema);
