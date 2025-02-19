@@ -1,5 +1,5 @@
 import { Schema, model, Types, Document, InferSchemaType } from 'mongoose';
-import { reactionSchema, IReaction } from './Reaction';
+import { reactionSchema, IReaction } from './Reaction.js';
 
 // Safe timestamp formatter
 const formatTimestamp = (timestamp: Date) => timestamp.toISOString();

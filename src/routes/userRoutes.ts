@@ -20,7 +20,7 @@ router.route('/:id')
   .put(updateUser)
   .delete(deleteUser);
 
-router.route('/:userId/friends/:friendId') // ✅ Fix: Ensure consistency in param names
+router.route('/:userId/friends/:friendId') 
   .post(addFriend)
   .delete(removeFriend);
 
