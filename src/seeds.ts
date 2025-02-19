@@ -40,20 +40,24 @@ const thoughts = [
 ];
 
 const seedDatabase = async () => {
-  try {
-    await User.deleteMany({});
-    await Thought.deleteMany({});
-
-    const createdUsers = await User.insertMany(users);
-    const createdThoughts = await Thought.insertMany(thoughts);
-
-    console.log('✅ Seed data inserted successfully!');
-    process.exit();
-  } catch (err) {
-    console.error('🔥 Error seeding database:', err);
-    process.exit(1);
-  }
-};
+    try {
+      await User.deleteMany({});
+      await Thought.deleteMany({});
+  
+      const createdUsers = await User.insertMany(users);
+      console.log('👤 Created Users:', createdUsers);
+  
+      const createdThoughts = await Thought.insertMany(thoughts);
+      console.log('💭 Created Thoughts:', createdThoughts); // LOG THIS
+  
+      console.log('✅ Seed data inserted successfully!');
+      process.exit();
+    } catch (err) {
+      console.error('🔥 Error seeding database:', err);
+      process.exit(1);
+    }
+  };
+  
 
 db.once('open', async () => {
   console.log('🌱 Seeding database...');
