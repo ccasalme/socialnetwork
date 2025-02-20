@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { Types } from 'mongoose';
-import User from '../models/User.js';
+import User from '../models/User';
 
 // Get all users
 export const getUsers = async (req: Request, res: Response): Promise<void> => {
