@@ -18,22 +18,51 @@ The application is built using **Node.js, Express.js, TypeScript, and MongoDB (M
 
 ---
 
-## **Example Screenshots**  
+## **Examples**  
 📌 **API Routes in Postman**  
 _(Fetching User Info, Adding Thoughts, Managing Reactions & Friends)_  
 
+🔹 **Example: Creating a New User**  
+
+![newuser](https://github.com/user-attachments/assets/97ab5ea3-fd5f-48c8-a4a2-b352c2b266e9)
+
+![newuserexample2](https://github.com/user-attachments/assets/080a318c-b019-49f7-9225-a6fc16867842)
+
+![newuserexample3](https://github.com/user-attachments/assets/1aab56f6-c475-4c6f-a90f-a8d58722e127)
+
+
+
+
 🔹 **Example: Creating a New Thought**  
 
+![newthought](https://github.com/user-attachments/assets/cf4e2716-e4a0-4c78-a46e-e55c7eabb3d2)
 
-https://github.com/user-attachments/assets/3e4d3ca9-d4f1-45e1-9060-2674e09995ba
 
 
 
 🔹 **Example: Adding a Reaction to a Thought**  
-![New Reaction API Call](path-to-your-screenshot.png)  
 
-🔹 **Example: Deleting a Friend**  
-![Delete Friend API Call](path-to-your-screenshot.png)  
+![newReaction](https://github.com/user-attachments/assets/4649e33b-c32a-44fb-b2f0-f351f1516181)
+
+![reactionthread](https://github.com/user-attachments/assets/97100447-b735-4f68-b271-795eceed96e5)
+
+
+
+🔹 **Quick Video Example in Postman**  
+  
+
+https://github.com/user-attachments/assets/68e0b7de-3bc6-4eba-929e-ce121d16b955
+
+
+🔹 **Quick Video Example in Mongoose if you forgot the ids**
+
+
+
+https://github.com/user-attachments/assets/a3f0a77c-8da0-49e6-9f99-041193927b8f
+
+
+
+**This ReadMe has very detailed instructions in how to create, update, and delete. Please refer to this ReadMe if you forgot what the endpoints are and the interface.**
 
 ---
 
@@ -118,6 +147,63 @@ To run this API locally, you must have **Node.js** and **MongoDB** installed on 
 | DELETE | `/api/users/:userId/friends/:friendId`     | Remove a friend from a user      |
 
 ---
+### ✅ Create (Post Requests) example
+New User
+
+📌 Endpoint:POST http://localhost:3001/api/users
+```
+{
+    "username": "spidey_no_sense",
+    "email": "nomoney2gohome@email.com"
+}
+```
+New Thought
+
+📌 Endpoint:POST http://localhost:3001/api/thoughts
+```
+{
+    "thoughtText": "Spidey no way home. Spidey no money. Spidey no parents. Why is life?!",
+    "username": "spidey_no_sense",
+    "userId": "67b6828671561dec517a3d5d"
+}
+```
+New Reaction
+```
+📌 Endpoint:POST http://localhost:3001/api/thoughts/{thoughtId}/reactions
+
+{
+    "reactionBody": "Feels bad, son. Have you tried being rich?",
+    "username": "Im_Iron_Man"
+}
+```
+New Friend
+
+📌 Endpoint:POST http://localhost:3001/api/users/{userId}/friends/{friendId}
+
+No request body needed
+
+---
+### 🔄 Update (PUT Requests) example
+
+Update a User
+
+📌 Endpoint:PUT http://localhost:3001/api/users/{userId}
+```
+{
+    "username": "ash_catch_em_all",
+    "email": "electic_yellow_mouse@email.com"
+}
+```
+Update a Thought
+
+📌 Endpoint:PUT http://localhost:3001/api/thoughts/{thoughtId}
+```
+{
+    "thoughtText": "New thought text: If you can't lift, you can't catch 'em all. Pidgeotto is at least 66lbs..."
+}
+```
+
+---
 
 ## **Contributing**  
 We welcome contributions! Follow these steps:  
@@ -149,7 +235,6 @@ npx ts-node src/seeds.ts
 - If you're using **MongoDB Atlas**, ensure your **network access** allows connections from your IP.  
 - Always **test API calls in Postman/Insomnia** before integrating with a frontend.  
 
----
 
 ### **🚀 Ready to Build Your Own Social Network?**  
 Start experimenting with the API and add your own features! 💡🔥  
