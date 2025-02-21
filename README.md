@@ -54,7 +54,7 @@ _(Fetching User Info, Adding Thoughts, Managing Reactions & Friends)_
 https://github.com/user-attachments/assets/68e0b7de-3bc6-4eba-929e-ce121d16b955
 
 
-🔹 **Quick Video Example in Mongoose if you forgot the ids**
+🔹 **Quick Video Example in MongoDB if you forgot the ids**
 
 
 
